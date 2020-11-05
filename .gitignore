@@ -1,0 +1,28 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Eclipse
+**/*.project
+**/*.classpath
+**/*.settings
+bin/
+
+# Mac
+.DS_Store
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.log
+
+out
+build
+.gradle
+gradle
+gradle*
+
+*.class
+/classes

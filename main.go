@@ -27,9 +27,14 @@ func main() {
 		container := deployment.Spec.Template.Spec.Containers[i]
 		for j, env := range container.Env {
 			if env.ValueFrom != nil && env.ValueFrom.ConfigMapKeyRef != nil {
-				value, err := getValueFromConfigMap(configMaps, env.ValueFrom.ConfigMapKeyRef.Name, env.ValueFrom.ConfigMapKeyRef.Key)
+
+				value, err := getValueFromConfigMap(
+					configMaps,
+					env.ValueFrom.ConfigMapKeyRef.Name,
+					env.ValueFrom.ConfigMapKeyRef.Key)
+
 				if err != nil {
-					log.Warnln(env.ValueFrom, err)
+					log.Warnln(env.ValueFrom.ConfigMapKeyRef.Name, env.ValueFrom.ConfigMapKeyRef.Key, err)
 					continue
 				}
 				newEnvVar := newEnvVar(env.Name, value)
@@ -45,6 +50,7 @@ func main() {
 	err := ioutil.WriteFile(*destinationDeploymentFilename, marshal, os.ModePerm)
 	if err != nil {
 		log.Error(err)
+		return
 	}
 
 	log.Infoln("Replaced:", replacedCount)

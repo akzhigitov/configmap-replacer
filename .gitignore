@@ -26,3 +26,4 @@ gradle*
 
 *.class
 /classes
+configmap-replacer
